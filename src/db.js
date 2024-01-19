@@ -14,13 +14,23 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_DATA } = process.env;
 // const sequelize = new Sequelize(
   // `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
 
-const sequelize = new Sequelize(
-  DB_DATA,
-  {
+  const sequelize = new Sequelize(DB_DATA, {
     logging: false,
     native: false,
-  }
-);
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // Para evitar errores de certificado en entornos locales o de desarrollo
+      },
+    },
+  });
+//   const sequelize = new Sequelize(
+//   DB_DATA,
+//   {
+//     logging: false,
+//     native: false,
+//   }
+// );
 
 // inicializa los modelos
 orderModel(sequelize);
