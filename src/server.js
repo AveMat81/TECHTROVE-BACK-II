@@ -33,9 +33,15 @@ const allowedOrigins = [
 //   },
 //   credentials: true,
 // }));
+// server.use(cors({
+//   origin:"*"
+// }))
 server.use(cors({
-  origin:"*"
-}))
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Content-Type,Authorization",
+}));
+
 server.use("/api", router);
 
 
